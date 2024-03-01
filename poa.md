@@ -1,0 +1,4 @@
+- Socket.io
+- Peerjs
+- uuid
+- webRTC
