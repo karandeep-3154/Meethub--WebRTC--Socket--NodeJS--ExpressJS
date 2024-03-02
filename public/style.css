@@ -134,9 +134,10 @@ video {
   font-size: 17px;
   padding: 8px 6px;
 }
-.main__message_container input :focus {
-  box-shadow: none;
+.main__message_container input:focus {
+  outline: none;
 }
+
 .messages {
   color: white;
   list-style: none;

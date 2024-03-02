@@ -101,7 +101,7 @@ socket.on("createMessage", (message) => {
 
 /*Process of chatting:
 1) Frontend extracts the message from the input and sends it to server by emitting "message" event.
-2) In backend, a socket.on("message", (message)=> {...}) catches the message event and captures the message.
+2) In backend, a socket.on("message", (message)=> {...}) catches the "message" event and captures the message.
 3) Then, the message is emitted to all frontends using "createMessage" event.
 4) Then, every frontend catches "createMessage" event and captures the message and displays it.
 

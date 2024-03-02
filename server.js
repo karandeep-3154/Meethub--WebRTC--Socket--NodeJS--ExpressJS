@@ -34,17 +34,21 @@ io.on("connection", (socket) => {
     });
 
     /*Cases:-
-    io->includes self
-    socket->excludes self
-    1) io.emit => sends to literally everyone(Including Self)
-    2) socket.emit => sends to everyon
+    io->includes self(called emitting)
+    socket->excludes self(called broadcasting)
+    1) io.emit() => sends to literally everyone(Including Self)
+    2) socket.emit() => sends to everyone(Excluding Self)
  
-    2) io.to(roomId).emit() => sends to everyone(Including Self) in the room
-    3)socket.emit() or socket.broadcast.emit() => sends to everyone except the user who is emitting the message 
-    4)*/
+    Using roomId:
+    3) io.to(roomId).emit() => sends to everyone(Including Self) in the room
+    4) socket.broadcast.to(roomId).emit()=> sends to everyone(Excluding Self) in the room
+    
+    NOTE:
+    1) A socket represents a single connection between a client and the server
+    2) Room is a concept used to group sockets together.
+    */
   });
 });
-/* The selected code is an event listener for the "join-room" event. When a client emits a "join-room" event, the event listener will execute the code inside the curly braces.*/
 
 server.listen(3030);
 //Port at which Backend Server will listen is 3030
