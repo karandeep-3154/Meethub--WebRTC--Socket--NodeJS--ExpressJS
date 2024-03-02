@@ -28,6 +28,12 @@ io.on("connection", (socket) => {
   socket.on("join-room", (roomId, userId) => {
     socket.join(roomId);
     socket.broadcast.to(roomId).emit("user-connected", userId);
+
+    socket.on("message", (message) => {
+      io.to(roomId).emit("createMessage", message);
+    });
+    //When message is received from frontend client, it is broadcasted to all others in the room
+
   });
 });
 /* The selected code is an event listener for the "join-room" event. When a client emits a "join-room" event, the event listener will execute the code inside the curly braces.*/

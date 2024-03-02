@@ -30,12 +30,12 @@ navigator.mediaDevices
     1) path: This specifies the path where the PeerServer is located. In this case, it's set to "/peerjs".
     2) host: This specifies the host where the PeerServer is located. In this case, it's set to "/". This usually means that the host is the same as the current domain where the code is running.
     3) port: This specifies the port number on which the PeerServer is running. In this case, it's set to 3030. */
-    
+
     peer.on("open", (id) => {
       socket.emit("join-room", ROOM_ID, id);
     });
     /* peer.on('open', ...) sets up an event listener for when the Peer object created at line 20 successfully connects to the PeerServer and obtains its own ID. */
-    
+
 
     //New User's code:
     peer.on("call", call => {                 //The new User is Answering the call at line(61) from the existing User(every existing User will call the new User as soon as he connects to the room)
@@ -67,7 +67,7 @@ navigator.mediaDevices
       //Existing User receives the new user's Stream and adds it to his own Video Grid
     };
   });
-  //Note that we are doing work of sending stream inside "then" of the promise returned by getUserMedia. This is because we need to have access to the stream before we can send it.
+//Note that we are doing work of sending stream inside "then" of the promise returned by getUserMedia. This is because we need to have access to the stream before we can send it.
 
 const addVideoStream = (video, stream) => {
   video.srcObject = stream;
@@ -84,3 +84,16 @@ video.addEventListener('loadedmetadata', () => { video.play(); });: This line ad
 
 So, essentially, this function sets up a video element to display a live video stream provided by the stream parameter. Once the metadata of the video is loaded, it automatically starts playing the video.
  */
+
+let text = document.querySelector("input");
+document.querySelector("html").addEventListener("keydown", function (e) {
+  if (e.key == "Enter" && text.value.length !== 0) {
+    console.log(text.value);
+    socket.emit("message", text.value);
+    text.value = "";
+  }
+});
+
+socket.on("createMessage", (message) => {
+  console.log("This is coming from server", message);
+});
