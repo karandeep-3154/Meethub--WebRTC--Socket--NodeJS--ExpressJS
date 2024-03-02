@@ -32,8 +32,16 @@ io.on("connection", (socket) => {
     socket.on("message", (message) => {
       io.to(roomId).emit("createMessage", message);
     });
-    //When message is received from frontend client, it is broadcasted to all others in the room
 
+    /*Cases:-
+    io->includes self
+    socket->excludes self
+    1) io.emit => sends to literally everyone(Including Self)
+    2) socket.emit => sends to everyon
+ 
+    2) io.to(roomId).emit() => sends to everyone(Including Self) in the room
+    3)socket.emit() or socket.broadcast.emit() => sends to everyone except the user who is emitting the message 
+    4)*/
   });
 });
 /* The selected code is an event listener for the "join-room" event. When a client emits a "join-room" event, the event listener will execute the code inside the curly braces.*/

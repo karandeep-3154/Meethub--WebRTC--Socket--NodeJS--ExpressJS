@@ -137,3 +137,7 @@ video {
 .main__message_container input :focus {
   box-shadow: none;
 }
+.messages {
+  color: white;
+  list-style: none;
+}
