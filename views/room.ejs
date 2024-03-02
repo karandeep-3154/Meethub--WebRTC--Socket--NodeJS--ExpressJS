@@ -4,10 +4,17 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Hi</title>
-    <script src="script.js"></script>
-    <script>console.log("<%=roomId%>");</script>
+    <link rel="stylesheet" href="style.css" />
+    <script src="/socket.io/socket.io.js"></script>
+    <!-- We are including it here because we need to use it in script.js and frontend doesnot have npm packages. So, we get it everytime through the Internet -->
+    <script src="https://unpkg.com/peerjs@1.5.2/dist/peerjs.min.js"></script>
+    <script>
+      const ROOM_ID = "<%= roomId %>";
+    </script>
   </head>
   <body>
-    Let's Go!
+    <div id="video-grid"></div>
+    <script src="script.js"></script>
+    <!-- We need to place this at last so that when complete html gets loaded then only script gets loaded -->
   </body>
 </html>

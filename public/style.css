@@ -1,0 +1,11 @@
+#video-grid {
+  display: flex;
+  justify-content: center;
+  /* align-items: center; */
+}
+video {
+  height: 300px;
+  width: 400px;
+  object-fit: cover;
+  /* When you set object-fit: center;, it means that the content (image or video) will be resized to fit the container while preserving its aspect ratio, and it will be centered within the container both horizontally and vertically. This ensures that the entire content is visible within the container, and any excess content will be clipped if it exceeds the dimensions of the container. */
+}
