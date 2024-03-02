@@ -49,6 +49,7 @@
   padding: 8px 10px;
   min-width: 60px;
   cursor: pointer;
+  transition: 0.3s ease-in;
 }
 
 .main .main__left .main__controls .main__controls__block .main__controls__button:hover{
@@ -67,11 +68,13 @@
   color: #EB534B;
   padding: 8px 10px;
   cursor: pointer;
+  transition: 0.3s ease-in;
 }
 
 #leave_meeting:hover {
   background-color: #343434;
   border-radius: 5px;
+  color: rgb(198, 88, 88);
 }
 
 
