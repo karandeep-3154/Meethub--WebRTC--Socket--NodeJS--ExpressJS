@@ -1,7 +1,13 @@
+@import url('https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap');
+
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+}
+
+body {
+  font-family: "Nunito", sans-serif;
 }
 
 .main{
@@ -43,7 +49,7 @@
 .main .main__left .main__controls .main__controls__block .main__controls__button{
   display: flex;
   flex-direction: column;
-  gap: 5px;
+  gap: 8px;
   justify-content: center;
   align-items: center;
   padding: 8px 10px;
@@ -61,12 +67,17 @@
   font-size: 20px;
 }
 
+.main .main__left .main__controls .main__controls__block .main__controls__button span {
+  font-size: 14px;
+}
+
 #leave_meeting{
   display: flex;
   align-items: center;
   gap: 10px;
   color: #EB534B;
   padding: 8px 10px;
+  margin: auto 0;
   cursor: pointer;
   transition: 0.3s ease-in;
 }
@@ -75,6 +86,10 @@
   background-color: #343434;
   border-radius: 5px;
   color: rgb(198, 88, 88);
+}
+
+#leave_meeting span {
+  font-size: 14px;
 }
 
 
