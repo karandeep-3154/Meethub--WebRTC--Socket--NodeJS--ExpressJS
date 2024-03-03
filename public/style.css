@@ -53,7 +53,7 @@ body {
   justify-content: center;
   align-items: center;
   padding: 8px 10px;
-  min-width: 60px;
+  min-width: 70px;
   cursor: pointer;
   transition: 0.3s ease-in;
 }
@@ -130,6 +130,11 @@ body {
   color: white;
   list-style: none;
 }
+
+.unmute{
+  color: #CC3B33;
+}
+
 
 #video-grid {
   display: flex;
