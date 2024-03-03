@@ -8,6 +8,7 @@ const myVideo = document.createElement("video");
 //Created a Video Tag in Html DOM at Runtime
 myVideo.muted = true;
 
+const callList = [];
 navigator.mediaDevices
   .getUserMedia({
     video: true,
@@ -20,7 +21,7 @@ navigator.mediaDevices
     var peer = new Peer(undefined, {
       path: "/peerjs",
       host: "/",
-      port: 443,
+      port: 3030,
     });
     /*
     - This line creates a new instance of the Peer object. The first argument, undefined, is used to let the library generate a unique ID for the peer. The second argument is an options object which configures the Peer object.
@@ -41,14 +42,18 @@ navigator.mediaDevices
     peer.on("call", call => {                 //The new User is Answering the call at line(61) from the existing User(every existing User will call the new User as soon as he connects to the room)
       call.answer(myVideoStream);
       call.on("stream", existingUserVideoStream => {
+        
+        if(callList[call.peer])
+          return;
         const video = document.createElement("video");
         addVideoStream(video, existingUserVideoStream);
+        callList[call.peer] = call;
       });
       /* Steps involved from New User's Perspective:
-       1) New user supplies his own stream to the calling existing user.
-       2) New user calls Sets up a Listener to Receive the existing user's stream */
+      1) New user supplies his own stream to the calling existing user.
+      2) New user calls Sets up a Listener to Receive the existing user's stream */
     });
-
+    
     //Existing User's code:
     socket.on("user-connected", (userId) => {  //As soon as a new user connects to the room, the existing user will receive a "user-connected" event from the server.
       connectToNewUser(userId, myVideoStream); //Inside this function, the existing user establishes a Send/Receive Channel with the new user
@@ -56,13 +61,17 @@ navigator.mediaDevices
       1) Existing User calls the new user and sends him(New) his(Existing) stream
       2) Existing User calls Sets up a Listener to Receive the new user's stream*/
     });
-
+    
     const connectToNewUser = (userId, myVideoStream) => {
       const call = peer.call(userId, myVideoStream);
       //Existing User calls the new user and sends him(New) his(Existing) stream
       call.on("stream", newUserVideoStream => {
+        
+        if(callList[call.peer])
+          return;
         const video = document.createElement("video");
         addVideoStream(video, newUserVideoStream);
+        callList[call.peer] = call;
       });
       //Existing User receives the new user's Stream and adds it to his own Video Grid
     };
