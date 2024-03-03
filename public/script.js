@@ -20,7 +20,7 @@ navigator.mediaDevices
     var peer = new Peer(undefined, {
       path: "/peerjs",
       host: "/",
-      port: 3030,
+      port: 443,
     });
     /*
     - This line creates a new instance of the Peer object. The first argument, undefined, is used to let the library generate a unique ID for the peer. The second argument is an options object which configures the Peer object.
