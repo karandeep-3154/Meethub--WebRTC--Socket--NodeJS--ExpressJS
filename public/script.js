@@ -97,6 +97,7 @@ document.querySelector("html").addEventListener("keydown", function (e) {
 socket.on("createMessage", (message) => {
   console.log("This is coming from server", message);
   document.querySelector("ul").innerHTML += `<li class="message"><b>user</b><br/>${message}</li>`;
+  scrollToBottom();
 });
 
 /*Process of chatting:
@@ -107,3 +108,8 @@ socket.on("createMessage", (message) => {
 
 Note that broadcast is different from emit: emit sends to all people in room while broadcast is to all except the sender. 
 */
+
+const scrollToBottom = () => {
+  let chatWindow = document.querySelector(".main__chat_window");
+  chatWindow.scrollTop = chatWindow.scrollHeight;
+}
