@@ -9,12 +9,18 @@ const myVideo = document.createElement("video");
 myVideo.muted = true;
 
 const callList = [];
+
+var myUserName;
+
 navigator.mediaDevices
   .getUserMedia({
     video: true,
     audio: true,
   })
   .then((stream) => {
+
+    myUserName = prompt("Please enter your name");
+
     myVideoStream = stream;
     addVideoStream(myVideo, myVideoStream);
 
@@ -33,6 +39,8 @@ navigator.mediaDevices
     3) port: This specifies the port number on which the PeerServer is running. In this case, it's set to 3030. */
 
     peer.on("open", (id) => {
+      alert("Your URL is: \n\n" + window.location.href + "\n\nOn clicking ok, it will be copied to your clipboard.\nFeel free to share it with your friends.");
+      copyToClipboard(window.location.href);
       socket.emit("join-room", ROOM_ID, id);
     });
     /* peer.on('open', ...) sets up an event listener for when the Peer object created at line 20 successfully connects to the PeerServer and obtains its own ID. */
@@ -98,14 +106,14 @@ let text = document.querySelector("input");
 document.querySelector("html").addEventListener("keydown", function (e) {
   if (e.key == "Enter" && text.value.length !== 0) {
     console.log(text.value);
-    socket.emit("message", text.value);
+    socket.emit("message", text.value, myUserName);
     text.value = "";
   }
 });
 
-socket.on("createMessage", (message) => {
+socket.on("createMessage", (message, userName) => {
   console.log("This is coming from server", message);
-  document.querySelector("ul").innerHTML += `<li class="message"><b>user</b><br/>${message}</li>`;
+  document.querySelector("ul").innerHTML += `<li class="message"><b>${userName}</b><br/>&nbsp${message}</li>`; // &nbsp is for space
   scrollToBottom();
 });
 
@@ -178,3 +186,19 @@ const setPlayVideoButton = () => {
   `
   document.querySelector('.main__video_button').innerHTML = html;
 }
+
+function copyToClipboard(text) {
+  navigator.clipboard.writeText(text)
+    .then(() => {
+      console.log('Text copied to clipboard');
+    })
+    .catch(err => {
+      console.error('Failed to copy text: ', err);
+    });
+}
+
+document.querySelector("#chat_section_toggle_button").addEventListener("click", () => {
+  document.querySelector('#chat_section_toggle_button').classList.toggle('closed_chat_section');
+  document.querySelector('.main__left').classList.toggle('closed_chat_section');
+  document.querySelector('.main__right').classList.toggle('closed_chat_section');
+});
