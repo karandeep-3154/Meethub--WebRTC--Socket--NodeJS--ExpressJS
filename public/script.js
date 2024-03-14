@@ -47,7 +47,8 @@ navigator.mediaDevices
 
 
     //New User's code:
-    peer.on("call", call => {                 //The new User is Answering the call at line(61) from the existing User(every existing User will call the new User as soon as he connects to the room)
+    peer.on("call", call => {                 
+      //The new User is Answering the call at line(61) from the existing User(every existing User will call the new User as soon as he connects to the room)
       call.answer(myVideoStream);
       call.on("stream", existingUserVideoStream => {
         
@@ -201,4 +202,15 @@ document.querySelector("#chat_section_toggle_button").addEventListener("click", 
   document.querySelector('#chat_section_toggle_button').classList.toggle('closed_chat_section');
   document.querySelector('.main__left').classList.toggle('closed_chat_section');
   document.querySelector('.main__right').classList.toggle('closed_chat_section');
+});
+
+document.getElementById("leave-meeting").addEventListener("click", () => {
+  socket.emit("leave-meeting");
+});
+
+socket.on("meeting-ended", () => {
+  // Redirect or handle meeting ending logic here
+  alert("This Meeting has ended. \nIf you wish to again Start the Meeting, Click Ok and you will be Redirected to a New Private Room.");
+  // Example: Redirect to home page
+  window.location.href = "/";
 });

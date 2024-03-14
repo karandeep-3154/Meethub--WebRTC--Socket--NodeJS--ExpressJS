@@ -33,6 +33,10 @@ io.on("connection", (socket) => {
       io.to(roomId).emit("createMessage", message, userName);
     });
 
+    socket.on("leave-meeting", () => {
+      io.to(roomId).emit("meeting-ended");
+    });
+
     /*Cases:-
     io->includes self(called emitting)
     socket->excludes self(called broadcasting)
