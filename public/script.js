@@ -210,7 +210,7 @@ document.getElementById("leave-meeting").addEventListener("click", () => {
 
 socket.on("meeting-ended", () => {
   // Redirect or handle meeting ending logic here
-  alert("This Meeting has ended. \nIf you wish to again Start the Meeting, Click Ok and you will be Redirected to a New Private Room.");
+  alert("This Meeting has ended. \nIf you wish to Start the Meeting Again, Click Ok and you will be Redirected to a New Private Room.");
   // Example: Redirect to home page
   window.location.href = "/";
 });
